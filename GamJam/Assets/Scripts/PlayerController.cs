@@ -4,12 +4,17 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
     public float movePower;
+    public float grappleTime;
 
-    public GameObject grappleFab;
+    public GameObject head;
+    public GameObject torso;
+    public GameObject neckStart;
+    public GameObject neckEnd;
+    public GameObject neckGoal;
 
     private float fx;
     private bool grappling = false;
-    private GameObject grappleActive;
+    private float grappleStartTime;
 	
 	// Update is called once per frame
 	void Update ()
@@ -19,13 +24,16 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        GetComponent<Rigidbody2D>().AddForce(new Vector2(fx * movePower, 0));
+        torso.GetComponent<Rigidbody2D>().AddForce(new Vector2(fx * movePower, 0));
 
-        if (grappling)
+        GetComponent<LineRenderer>().SetPosition(0, neckStart.transform.position);
+        GetComponent<LineRenderer>().SetPosition(1, neckEnd.transform.position);
+        GetComponent<LineRenderer>().material.mainTextureScale = new Vector2(Vector2.Distance(neckEnd.transform.position, neckStart.transform.position), 1);
+
+        if (grappling && !Grapple.attached && Time.time - grappleStartTime > grappleTime)
         {
-            GetComponent<LineRenderer>().SetPosition(0, transform.position);
-            GetComponent<LineRenderer>().SetPosition(1, grappleActive.transform.position);
-            GetComponent<LineRenderer>().material.mainTextureScale = new Vector2(Vector2.Distance(grappleActive.transform.position, transform.position), 1);
+            grappling = false;
+            head.GetComponent<Grapple>().ReturnToStart(neckGoal, 0.3f);
         }
     }
 
@@ -37,20 +45,23 @@ public class PlayerController : MonoBehaviour {
         {
             if (grappling)
             {
-                Destroy(grappleActive);
                 grappling = false;
-                GetComponent<LineRenderer>().enabled = false;
-                GetComponent<LineRenderer>().SetPosition(0, transform.position);
-                GetComponent<LineRenderer>().SetPosition(1, transform.position);
+                head.GetComponent<Grapple>().ReturnToStart(neckGoal, 0.3f);
             }
             else
             {
-                Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
+                Vector3 pos = Camera.main.WorldToScreenPoint(neckEnd.transform.position);
                 Vector3 direction = Input.mousePosition - pos;
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                grappleActive = (GameObject)Instantiate(grappleFab, transform.position, Quaternion.AngleAxis(angle - 90f, Vector3.forward));
+
+                head.transform.parent = null;
+                head.GetComponent<Rigidbody2D>().gravityScale = 0;
+                head.GetComponent<Grapple>().Shoot(angle);
+                torso.GetComponent<SpringJoint2D>().enabled = false;
+                head.GetComponent<Collider2D>().isTrigger = true;
 
                 grappling = true;
+                grappleStartTime = Time.time;
                 GetComponent<LineRenderer>().enabled = true;
             }
         }
