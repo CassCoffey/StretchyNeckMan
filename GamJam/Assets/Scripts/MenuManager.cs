@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour {
 	void FixedUpdate(){
 		if (Snow [0] != null) {
 			for(int i = 0; i < Snow.Length; i++){
-				Snow[i].transform.localScale += new Vector3(0, 0.001F, 0);
+				Snow[i].transform.localScale += new Vector3(0, 0.003F, 0);
 			}
 		}
 	}
