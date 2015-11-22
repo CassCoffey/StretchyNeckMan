@@ -15,6 +15,7 @@ public class Chimney : MonoBehaviour
     {
         if (other.tag == "present" && !presented)
         {
+            GetComponent<AudioSource>().Play();
             Destroy(other.gameObject);
             particle.SetActive(true);
             presented = true;
