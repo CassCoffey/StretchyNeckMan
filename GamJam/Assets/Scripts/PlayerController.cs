@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     private float fy;
     private bool grappling = false;
     private float grappleStartTime;
+    private bool canPresent = true;
 	
 	// Update is called once per frame
 	void Update ()
@@ -72,10 +73,19 @@ public class PlayerController : MonoBehaviour {
             }
         }
         
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && canPresent)
         {
             GameObject presentTemp = (GameObject)Instantiate(present, presentArea.transform.position, Quaternion.identity);
             presentTemp.GetComponent<Rigidbody2D>().AddForce(presentArea.transform.up * presentForce, ForceMode2D.Impulse);
+
+            canPresent = false;
+            StartCoroutine(Reload());
         }
+    }
+
+    IEnumerator Reload()
+    {
+            yield return new WaitForSeconds(0.5f);
+            canPresent = true;
     }
 }
