@@ -12,7 +12,6 @@ public class DinoAI : MonoBehaviour {
 	private bool shotFired;
 	private bool targetAcquired;
 	private float playerDistance;
-	private float laserDecrease = 0;
 	private float laserTime = 0;
 
 	public float shootFrequency = 5;
