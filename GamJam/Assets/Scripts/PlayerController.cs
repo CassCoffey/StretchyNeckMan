@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour {
             }
         }
         
-        if (Input.GetButtonDown("Fire2") && canPresent)
+        if (Input.GetButton("Fire2") && canPresent)
         {
             GameObject presentTemp = (GameObject)Instantiate(present, presentArea.transform.position, Quaternion.identity);
             presentTemp.GetComponent<Rigidbody2D>().AddForce(presentArea.transform.up * presentForce, ForceMode2D.Impulse);
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour {
 
     IEnumerator Reload()
     {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             canPresent = true;
     }
 }
