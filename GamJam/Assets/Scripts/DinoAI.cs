@@ -42,7 +42,7 @@ public class DinoAI : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (shooting) {
-			GetComponent<LineRenderer> ().enabled = true;
+            GetComponent<LineRenderer> ().enabled = true;
 			shootTime += Time.deltaTime;
 			if (shootTime >= targetDelay && !targetAcquired) {
 				currentTarget = (GameObject)GameObject.Instantiate (target, player.transform.position, Quaternion.identity);
@@ -74,7 +74,9 @@ public class DinoAI : MonoBehaviour {
 		else {
 			frequencyTime += Time.deltaTime;
 			if(frequencyTime >= shootFrequency){
-				shooting = true;
+                laserStart.GetComponent<AudioSource>().Play();
+                GetComponent<AudioSource>().PlayDelayed(shootDelay - 1);
+                shooting = true;
 				shotFired = false;
 			}
 		}
