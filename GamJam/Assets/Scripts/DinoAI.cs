@@ -45,6 +45,12 @@ public class DinoAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+		if(shootFrequency < 0)
+			shootFrequency = 0;
+		if (gameObject.GetComponent<Rigidbody2D> ().velocity.magnitude > 15) {
+			gameObject.GetComponent<Rigidbody2D> ().velocity = gameObject.GetComponent<Rigidbody2D> ().velocity.normalized*15;
+		}
+
         if (player != null)
         {
             if (shooting)
@@ -102,7 +108,7 @@ public class DinoAI : MonoBehaviour {
             else
             {
                 frequencyTime += Time.deltaTime;
-                if (frequencyTime >= shootFrequency)
+				if (frequencyTime >= shootFrequency - Time.timeSinceLevelLoad / timeScaling)
                 {
                     laserStart.GetComponent<AudioSource>().Play();
                     GetComponent<AudioSource>().PlayDelayed(shootDelay - 1);
@@ -111,7 +117,7 @@ public class DinoAI : MonoBehaviour {
                 }
             }
             playerDistance = -1 * (transform.position.x - player.transform.position.x);
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(3 + playerDistance / 5 + Time.deltaTime / timeScaling, 0);
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(3 + playerDistance / 5 + Time.timeSinceLevelLoad / timeScaling, 0);
         }
         else
         {
