@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
 			PlayerPrefs.SetInt("Highscore", totalScore);
 		}
         Time.timeScale = 1f;
-        GetComponent<Grayscale>().enabled = false;
         Application.LoadLevel("GameOver");
+        GetComponent<Grayscale>().enabled = false;
     }
 }
