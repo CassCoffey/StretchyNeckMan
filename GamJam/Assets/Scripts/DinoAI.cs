@@ -27,12 +27,12 @@ public class DinoAI : MonoBehaviour {
 	void Update(){
 		if (targetAcquired) {
 			GetComponent<LineRenderer> ().SetPosition (0, laserStart.transform.position);
-			GetComponent<LineRenderer> ().SetPosition (1, 50 * (currentTarget.transform.position - laserStart.transform.position).normalized + laserStart.transform.position);
+			GetComponent<LineRenderer> ().SetPosition (1, 50 * ((currentTarget.transform.position - Vector3.forward) - laserStart.transform.position).normalized + laserStart.transform.position);
 			GetComponent<LineRenderer> ().material.mainTextureScale = new Vector2 (Vector2.Distance (currentTarget.transform.position, laserStart.transform.position), 1);
 		} 
 		else {
 			GetComponent<LineRenderer> ().SetPosition (0, laserStart.transform.position);
-			GetComponent<LineRenderer> ().SetPosition (1, 50 * (player.transform.position - laserStart.transform.position).normalized + laserStart.transform.position);
+			GetComponent<LineRenderer> ().SetPosition (1, 50 * ((player.transform.position - Vector3.forward) - laserStart.transform.position).normalized + laserStart.transform.position);
 			GetComponent<LineRenderer> ().material.mainTextureScale = new Vector2 (Vector2.Distance (player.transform.position, laserStart.transform.position), 1);
 		}
 	}
@@ -44,14 +44,16 @@ public class DinoAI : MonoBehaviour {
 			shootTime += Time.deltaTime;
 			if (shootTime >= targetDelay && !targetAcquired) {
 				currentTarget = (GameObject)GameObject.Instantiate (target, player.transform.position, Quaternion.identity);
+                currentTarget.transform.parent = transform;
 				targetAcquired = true;
 			}
 			if (shootTime >= shootDelay - 1 && !shotFired) {
-				GetComponent<LineRenderer> ().SetColors (new Color (255, 255, 255, 255), new Color (255, 255, 255, 255));
-				GetComponent<LineRenderer> ().SetWidth (1, 1);
+                shotFired = true;
+                GetComponent<LineRenderer> ().SetColors (new Color (255, 255, 255, 255), new Color (255, 255, 255, 255));
+				GetComponent<LineRenderer> ().SetWidth (.5f, 1);
+                Camera.main.GetComponent<CameraScript>().Shake(0.2f, 1f);
 			}
 			if (shootTime >= shootDelay) {
-				shotFired = true;
 				shooting = false;
 				targetAcquired = false;
 				shootTime = 0;
