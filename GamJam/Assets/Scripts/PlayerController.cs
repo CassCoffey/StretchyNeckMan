@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour {
 
     private float fx;
     private float fy;
-    private bool grappling = false;
+    private bool grappling = true;
     private float grappleStartTime;
     private bool canPresent = true;
 	
@@ -80,6 +80,11 @@ public class PlayerController : MonoBehaviour {
 
             canPresent = false;
             StartCoroutine(Reload());
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            GetComponentInChildren<TorsoScript>().Pop();
         }
     }
 
