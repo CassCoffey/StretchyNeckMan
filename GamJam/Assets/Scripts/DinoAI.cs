@@ -46,20 +46,32 @@ public class DinoAI : MonoBehaviour {
 			shootTime += Time.deltaTime;
 			if (shootTime >= targetDelay && !targetAcquired) {
 				currentTarget = (GameObject)GameObject.Instantiate (target, player.transform.position, Quaternion.identity);
+				Destroy (currentTarget, shootDelay - targetDelay);
                 currentTarget.transform.parent = transform;
 				targetAcquired = true;
 			}
 			if (shootTime >= shootDelay - 1 && !shotFired) {
 				laserTime = 0;
                 shotFired = true;
+				currentTarget.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
                 GetComponent<LineRenderer> ().SetColors (new Color (1, 1, 1, 1), new Color (1, 1, 1, 1));
 				GetComponent<LineRenderer> ().SetWidth (1f, 1.7f);
                 Camera.main.GetComponent<CameraScript>().Shake(0.2f, 1f);
 			}
-			if(shootTime >= shootDelay - 1){
+			if(shootTime >= shootDelay - 1){//While big laser is out
 				GetComponent<LineRenderer>().SetColors (new Color (1, 1, 1, 1-0.3f*laserTime), new Color (1, 1, 1, 1-0.3f*laserTime));
 				GetComponent<LineRenderer> ().SetWidth (1f - 0.5f*laserTime, 1.7f);
 				laserTime += Time.deltaTime;
+				RaycastHit2D beam = Physics2D.Raycast(laserStart.transform.position, (currentTarget.transform.position - laserStart.transform.position).normalized + laserStart.transform.position);
+				if(beam.collider != null && beam.collider.tag == "Player"){
+					print(beam.collider);
+					if(beam.collider.transform.name == "Body"){
+						beam.collider.gameObject.GetComponent<TorsoScript>().Pop();
+					}
+					else if(beam.collider.transform.name != "Head"){
+						beam.collider.gameObject.GetComponent<LimbScript>().LimbExplode();
+					}
+				}
 			}
 			if (shootTime >= shootDelay) {
 				shooting = false;
