@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
 
         GetComponent<LineRenderer>().SetPosition(0, neckStart.transform.position);
         GetComponent<LineRenderer>().SetPosition(1, neckEnd.transform.position);
-        GetComponent<LineRenderer>().material.mainTextureScale = new Vector2(Vector2.Distance(neckEnd.transform.position, neckStart.transform.position) * 2, 1);
+        GetComponent<LineRenderer>().material.mainTextureScale = new Vector2(Vector2.Distance(neckEnd.transform.position, neckStart.transform.position), 1);
     }
 
     void FixedUpdate()

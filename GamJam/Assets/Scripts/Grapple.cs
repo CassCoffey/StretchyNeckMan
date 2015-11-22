@@ -9,6 +9,7 @@ public class Grapple : MonoBehaviour
 
     public GameObject torso;
     public GameObject neckStart;
+    public GameObject particle;
 
     private GameObject origin;
     private Vector2 headLoc;
@@ -38,6 +39,8 @@ public class Grapple : MonoBehaviour
             GetComponent<Rigidbody2D>().isKinematic = true;
             torso.GetComponent<SpringJoint2D>().enabled = true;
             torso.GetComponent<SpringJoint2D>().distance = Vector2.Distance(neckStart.transform.position, transform.position)/4f;
+
+            Instantiate(particle, transform.position, Quaternion.identity);
         }
     }
 
