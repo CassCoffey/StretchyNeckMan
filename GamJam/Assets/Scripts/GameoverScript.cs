@@ -8,7 +8,9 @@ public class GameoverScript : MonoBehaviour
 	public GameObject yourscore;
 	public GameObject congrats;
 
-	void Start(){
+	void Start()
+    {
+        GetComponent<AudioSource>().PlayDelayed(3);
 		congrats.SetActive (false);
 		highscore.GetComponent<Text> ().text = "Highscore: \n" + PlayerPrefs.GetInt ("Highscore");
 		yourscore.GetComponent<Text> ().text = "Your Score: \n" + PlayerPrefs.GetInt ("Lastscore");
