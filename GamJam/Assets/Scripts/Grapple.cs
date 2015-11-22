@@ -19,11 +19,14 @@ public class Grapple : MonoBehaviour
 
     private Transform originalParent;
 
+    void Start()
+    {
+        originalParent = transform.parent;
+    }
+
 	// Use this for initialization
 	public void Shoot (float angle)
     {
-        originalParent = transform.parent;
-
         transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * force, ForceMode2D.Impulse);

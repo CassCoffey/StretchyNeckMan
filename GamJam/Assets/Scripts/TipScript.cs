@@ -14,7 +14,7 @@ public class TipScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	    if (Input.GetButtonDown("Fire1"))
+	    if (Input.anyKeyDown)
         {
             Time.timeScale = 1f;
             tipWindow.SetActive(false);

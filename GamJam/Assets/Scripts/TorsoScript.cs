@@ -9,5 +9,7 @@ public class TorsoScript : MonoBehaviour
     {
         Instantiate(gore, transform.position, Quaternion.identity);
         Destroy(transform.parent.gameObject);
+
+        Camera.main.GetComponent<GameManager>().StartGameOver();
     }
 }

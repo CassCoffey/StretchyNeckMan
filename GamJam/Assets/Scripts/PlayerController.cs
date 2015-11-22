@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour {
                 grappling = false;
                 head.GetComponent<Grapple>().ReturnToStart(neckGoal, 0.3f);
             }
-            else
+            else if (head.transform.parent == this.transform)
             {
                 Vector3 pos = Camera.main.WorldToScreenPoint(neckEnd.transform.position);
                 Vector3 direction = Input.mousePosition - pos;
