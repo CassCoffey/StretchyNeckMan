@@ -4,13 +4,17 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
     public float movePower;
+    public float presentForce;
     public float grappleTime;
+
+    public GameObject present;
 
     public GameObject head;
     public GameObject torso;
     public GameObject neckStart;
     public GameObject neckEnd;
     public GameObject neckGoal;
+    public GameObject presentArea;
 
     private float fx;
     private float fy;
@@ -66,6 +70,12 @@ public class PlayerController : MonoBehaviour {
                 grappleStartTime = Time.time;
                 GetComponent<LineRenderer>().enabled = true;
             }
+        }
+        
+        if (Input.GetButtonDown("Fire2"))
+        {
+            GameObject presentTemp = (GameObject)Instantiate(present, presentArea.transform.position, Quaternion.identity);
+            presentTemp.GetComponent<Rigidbody2D>().AddForce(presentArea.transform.up * presentForce, ForceMode2D.Impulse);
         }
     }
 }

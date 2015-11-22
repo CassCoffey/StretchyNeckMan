@@ -38,7 +38,7 @@ public class Grapple : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             GetComponent<Rigidbody2D>().isKinematic = true;
             torso.GetComponent<SpringJoint2D>().enabled = true;
-            torso.GetComponent<SpringJoint2D>().distance = Vector2.Distance(neckStart.transform.position, transform.position)/4f;
+            torso.GetComponent<SpringJoint2D>().distance = Vector2.Distance(neckStart.transform.position, transform.position)/8f;
 
             Instantiate(particle, transform.position, Quaternion.identity);
             Camera.main.GetComponent<CameraScript>().Shake(0.1f, 0.2f);
