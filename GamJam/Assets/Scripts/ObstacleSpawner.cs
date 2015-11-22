@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class ObstacleSpawner : MonoBehaviour {
 
     public GameObject target;
+    public GameObject mountains;
 
     public GameObject[] topObstacles;
     public GameObject[] botObstacles;
@@ -22,6 +24,7 @@ public class ObstacleSpawner : MonoBehaviour {
     private float botDistance = 0;
     private float startLoc;
     private float furthestLoc;
+    private float previousLoc;
 
     private float nextTopDist;
     private float nextBotDist;
@@ -30,6 +33,7 @@ public class ObstacleSpawner : MonoBehaviour {
     {
         startLoc = target.transform.position.x;
         furthestLoc = startLoc;
+        previousLoc = startLoc;
         nextTopDist = findNextDist(topFrequency, topVariance);
         nextBotDist = findNextDist(botFrequency, botVariance);
     }
@@ -37,6 +41,12 @@ public class ObstacleSpawner : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (mountains != null)
+        {
+            mountains.GetComponent<Image>().material.mainTextureOffset = new Vector2((float)mountains.GetComponent<Image>().material.mainTextureOffset.x + (((float)target.transform.position.x - (float)previousLoc)/100f), (float)mountains.GetComponent<Image>().material.mainTextureOffset.y);
+            previousLoc = target.transform.position.x;
+        }
+
 	    if (target.transform.position.x > furthestLoc)
         {
             topDistance += target.transform.position.x - furthestLoc;
