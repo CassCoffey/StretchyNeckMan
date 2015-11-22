@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public int totalScore; //Score of presents + Max distance gone 
-	int numPresents; //Score of presents
+	public int numPresents = 0; //Score of presents
 	float maxDistance; //Max distance gone
 
 
@@ -14,6 +14,6 @@ public class GameManager : MonoBehaviour {
 			maxDistance = transform.position.x;
 		}
 
-		totalScore = numPresents + (int)maxDistance*20;
+		totalScore = numPresents*100 + (int)maxDistance*20;
 	}
 }
