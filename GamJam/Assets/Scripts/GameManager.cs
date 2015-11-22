@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour {
     IEnumerator GameOver()
     {
         yield return new WaitForSeconds(3);
-		if (!PlayerPrefs.HasKey("HighScore") || totalScore > PlayerPrefs.GetInt ("Highscore")) {
+		PlayerPrefs.SetInt ("Lastscore", totalScore);
+		if (!PlayerPrefs.HasKey("HighScore") || totalScore >= PlayerPrefs.GetInt ("Highscore")) {
 			PlayerPrefs.SetInt("Highscore", totalScore);
 		}
         Time.timeScale = 1f;

@@ -73,19 +73,21 @@ public class DinoAI : MonoBehaviour {
                     GetComponent<LineRenderer>().SetColors(new Color(1, 1, 1, 1 - 0.3f * laserTime), new Color(1, 1, 1, 1 - 0.3f * laserTime));
                     GetComponent<LineRenderer>().SetWidth(1f - 0.5f * laserTime, 1.7f);
                     laserTime += Time.deltaTime;
-                    RaycastHit2D beam = Physics2D.Raycast(laserStart.transform.position, (currentTarget.transform.position - laserStart.transform.position).normalized);
-                    if (beam.collider != null && beam.collider.tag == "Player")
-                    {
-                        print(beam.collider);
-                        if (beam.collider.transform.name == "Body")
-                        {
-                            beam.collider.gameObject.GetComponent<TorsoScript>().Pop();
-                        }
-                        else if (beam.collider.transform.name != "Head")
-                        {
-                            beam.collider.gameObject.GetComponent<LimbScript>().LimbExplode();
-                        }
-                    }
+                    RaycastHit2D[] beam = Physics2D.RaycastAll(laserStart.transform.position, (currentTarget.transform.position - laserStart.transform.position).normalized);
+					for(int i = 0; i < beam.Length; i++){
+						if (beam[i].collider != null && beam[i].collider.tag == "Player")
+                    	{
+                        	print(beam[i].collider);
+                        	if (beam[i].collider.transform.name == "Body")
+                        	{
+                            	beam[i].collider.gameObject.GetComponent<TorsoScript>().Pop();
+                        	}
+                        	else if (beam[i].collider.transform.name != "Head")
+                        	{
+                            	beam[i].collider.gameObject.GetComponent<LimbScript>().LimbExplode();
+                        	}
+                    	}
+					}
                 }
                 if (shootTime >= shootDelay)
                 {
