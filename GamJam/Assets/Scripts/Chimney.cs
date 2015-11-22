@@ -13,8 +13,6 @@ public class Chimney : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collider");
-
         if (other.tag == "present" && !presented)
         {
             Destroy(other.gameObject);
