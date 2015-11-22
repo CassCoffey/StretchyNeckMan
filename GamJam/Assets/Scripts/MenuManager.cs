@@ -8,8 +8,18 @@ public class MenuManager : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	public void ChangeMenu(string menu){
+		if (menu == "instructions") {
+			transform.FindChild ("MainMenu").gameObject.SetActive(false);
+			transform.FindChild ("Instructions").gameObject.SetActive(true);
+		}
+		if (menu == "mainmenu") {
+			transform.FindChild ("Instructions").gameObject.SetActive(false);
+			transform.FindChild ("MainMenu").gameObject.SetActive(true);
+		}
+	}
+
+	public void StartGame(){
+		Application.LoadLevel ("Default");
 	}
 }
