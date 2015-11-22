@@ -10,9 +10,14 @@ public class LimbScript : MonoBehaviour
     {
         if (collision.collider.tag != "Player" && collision.relativeVelocity.magnitude > maxVelocity)
         {
-            GetComponent<HingeJoint2D>().enabled = false;
-            transform.parent = null;
-            particle.SetActive(true);
+            LimbExplode();
         }
+    }
+
+    public void LimbExplode()
+    {
+        GetComponent<HingeJoint2D>().enabled = false;
+        transform.parent = null;
+        particle.SetActive(true);
     }
 }
