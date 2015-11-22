@@ -12,11 +12,12 @@ public class GameoverScript : MonoBehaviour
     {
         GetComponent<AudioSource>().PlayDelayed(3);
 		congrats.SetActive (false);
-		highscore.GetComponent<Text> ().text = "Highscore: \n" + PlayerPrefs.GetInt ("Highscore");
-		yourscore.GetComponent<Text> ().text = "Your Score: \n" + PlayerPrefs.GetInt ("Lastscore");
-		if (PlayerPrefs.GetInt ("Lastscore") == PlayerPrefs.GetInt ("Highscore"))
+		highscore.GetComponent<Text> ().text = "Highscore: \n" + PlayerPrefs.GetInt ("HighScore");
+		yourscore.GetComponent<Text> ().text = "Your Score: \n" + PlayerPrefs.GetInt ("LastScore");
+		if (PlayerPrefs.GetInt ("LastScore") == PlayerPrefs.GetInt ("HighScore"))
 			congrats.SetActive (true);
-	}
+        PlayerPrefs.Save();
+    }
 
 	// Update is called once per frame
 	void Update ()

@@ -5,9 +5,12 @@ public class MenuManager : MonoBehaviour {
 
 	public GameObject[] Snow = new GameObject[4];
 
-	// Use this for initialization
-	void Start () {
-	
+	void Update ()
+    {
+	    if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 	}
 
 	void FixedUpdate(){

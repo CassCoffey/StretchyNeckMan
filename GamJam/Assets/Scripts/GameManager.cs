@@ -39,10 +39,11 @@ public class GameManager : MonoBehaviour {
     IEnumerator GameOver()
     {
         yield return new WaitForSeconds(3);
-		PlayerPrefs.SetInt ("Lastscore", totalScore);
-		if (!PlayerPrefs.HasKey("HighScore") || totalScore >= PlayerPrefs.GetInt ("Highscore")) {
-			PlayerPrefs.SetInt("Highscore", totalScore);
+		PlayerPrefs.SetInt ("LastScore", totalScore);
+		if (!PlayerPrefs.HasKey("HighScore") || totalScore >= PlayerPrefs.GetInt ("HighScore")) {
+			PlayerPrefs.SetInt("HighScore", totalScore);
 		}
+        PlayerPrefs.Save();
         Time.timeScale = 1f;
         Application.LoadLevel("GameOver");
         GetComponent<Grayscale>().enabled = false;

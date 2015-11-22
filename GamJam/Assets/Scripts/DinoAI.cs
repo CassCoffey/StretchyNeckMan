@@ -20,11 +20,6 @@ public class DinoAI : MonoBehaviour {
 	public float shootDelay = 5;
 	public float shootTime = 0; 
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
 	void Update(){
         if (player != null)
         {
@@ -117,7 +112,7 @@ public class DinoAI : MonoBehaviour {
                 }
             }
             playerDistance = -1 * (transform.position.x - player.transform.position.x);
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(3 + playerDistance / 5 + Time.timeSinceLevelLoad / timeScaling, 0);
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(2 + playerDistance / 5 + Time.timeSinceLevelLoad / timeScaling, 0);
         }
         else
         {
