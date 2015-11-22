@@ -44,14 +44,14 @@ public class ObstacleSpawner : MonoBehaviour {
             if (topObstacles.Length > 0 && topDistance > nextTopDist)
             {
                 topDistance -= nextTopDist;
-                Instantiate(topObstacles[Random.Range(0, topObstacles.Length)], new Vector3(target.transform.position.x + xOffset, topY, 0), Quaternion.identity);
+                Instantiate(topObstacles[Random.Range(0, topObstacles.Length)], new Vector3(target.transform.position.x + xOffset, topY, -2), Quaternion.identity);
                 nextTopDist = findNextDist(topFrequency, topVariance);
             }
 
             if (botObstacles.Length > 0 && botDistance > nextBotDist)
             {
                 botDistance -= nextBotDist;
-                Instantiate(botObstacles[Random.Range(0, botObstacles.Length)], new Vector3(target.transform.position.x + xOffset, botY, 0), Quaternion.identity);
+                Instantiate(botObstacles[Random.Range(0, botObstacles.Length)], new Vector3(target.transform.position.x + xOffset, botY, -2), Quaternion.identity);
                 nextBotDist = findNextDist(botFrequency, botVariance);
             }
 
