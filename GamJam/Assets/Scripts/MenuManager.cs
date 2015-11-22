@@ -3,9 +3,19 @@ using System.Collections;
 
 public class MenuManager : MonoBehaviour {
 
+	public GameObject[] Snow = new GameObject[4];
+
 	// Use this for initialization
 	void Start () {
 	
+	}
+
+	void FixedUpdate(){
+		if (Snow [0] != null) {
+			for(int i = 0; i < Snow.Length; i++){
+				Snow[i].transform.localScale += new Vector3(0, 0.001F, 0);
+			}
+		}
 	}
 	
 	public void ChangeMenu(string menu){
