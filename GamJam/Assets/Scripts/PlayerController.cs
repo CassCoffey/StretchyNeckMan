@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
     public GameObject neckGoal;
 
     private float fx;
+    private float fy;
     private bool grappling = false;
     private float grappleStartTime;
 	
@@ -20,15 +21,15 @@ public class PlayerController : MonoBehaviour {
 	void Update ()
     {
         CheckInput();
-	}
-
-    void FixedUpdate()
-    {
-        torso.GetComponent<Rigidbody2D>().AddForce(new Vector2(fx * movePower, 0));
 
         GetComponent<LineRenderer>().SetPosition(0, neckStart.transform.position);
         GetComponent<LineRenderer>().SetPosition(1, neckEnd.transform.position);
         GetComponent<LineRenderer>().material.mainTextureScale = new Vector2(Vector2.Distance(neckEnd.transform.position, neckStart.transform.position) * 2, 1);
+    }
+
+    void FixedUpdate()
+    {
+        torso.GetComponent<Rigidbody2D>().AddForce(new Vector2(fx * movePower, fy * movePower));
 
         if (grappling && !Grapple.attached && Time.time - grappleStartTime > grappleTime)
         {
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour {
     private void CheckInput()
     {
         fx = Input.GetAxis("Horizontal");
+        fy = Input.GetAxis("Vertical");
 
         if (Input.GetButtonDown("Fire1"))
         {
