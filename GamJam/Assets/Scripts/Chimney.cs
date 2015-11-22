@@ -5,10 +5,10 @@ public class Chimney : MonoBehaviour
 {
     public GameObject particle;
     private bool presented = false;
-	public GameObject gameScript;
+	public GameManager gameScript;
 
 	void Start(){
-		gameScript = GameObject.FindGameObjectsWithTag ("Body");
+		gameScript = Camera.main.GetComponent<GameManager>();
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -20,7 +20,7 @@ public class Chimney : MonoBehaviour
             Destroy(other.gameObject);
             particle.SetActive(true);
             presented = true;
-			gameScript.GetComponent<GameManager>().numPresents++;
+			gameScript.numPresents++;
         }
     }
 }
