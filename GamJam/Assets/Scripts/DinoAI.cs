@@ -74,6 +74,7 @@ public class DinoAI : MonoBehaviour {
                     GetComponent<LineRenderer>().SetWidth(1f - 0.5f * laserTime, 1.7f);
                     laserTime += Time.deltaTime;
                     RaycastHit2D beam = Physics2D.Raycast(laserStart.transform.position, (currentTarget.transform.position - laserStart.transform.position).normalized + laserStart.transform.position);
+                    Debug.DrawRay(laserStart.transform.position, (currentTarget.transform.position - laserStart.transform.position).normalized + laserStart.transform.position);
                     if (beam.collider != null && beam.collider.tag == "Player")
                     {
                         print(beam.collider);
@@ -111,6 +112,16 @@ public class DinoAI : MonoBehaviour {
             }
             playerDistance = -1 * (transform.position.x - player.transform.position.x);
             gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(3 + playerDistance / 5 + Time.deltaTime / timeScaling, 0);
+        }
+        else
+        {
+            shooting = false;
+            targetAcquired = false;
+            shootTime = 0;
+            frequencyTime = 0;
+            GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
+            GetComponent<LineRenderer>().SetColors(new Color(1, 1, 1, 0.4f), new Color(1, 1, 1, 0.4f));
+            GetComponent<LineRenderer>().enabled = false;
         }
 	}
 }
