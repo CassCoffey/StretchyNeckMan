@@ -12,6 +12,8 @@ public class DinoAI : MonoBehaviour {
 	private bool shotFired;
 	private bool targetAcquired;
 	private float playerDistance;
+	private float laserDecrease = 0;
+	private float laserTime = 0;
 
 	public float shootFrequency = 5;
 	public float frequencyTime = 0;	
@@ -48,20 +50,25 @@ public class DinoAI : MonoBehaviour {
 				targetAcquired = true;
 			}
 			if (shootTime >= shootDelay - 1 && !shotFired) {
+				laserTime = 0;
                 shotFired = true;
-                GetComponent<LineRenderer> ().SetColors (new Color (255, 255, 255, 255), new Color (255, 255, 255, 255));
-				GetComponent<LineRenderer> ().SetWidth (.5f, 1);
+                GetComponent<LineRenderer> ().SetColors (new Color (1, 1, 1, 1), new Color (1, 1, 1, 1));
+				GetComponent<LineRenderer> ().SetWidth (1f, 1.7f);
                 Camera.main.GetComponent<CameraScript>().Shake(0.2f, 1f);
+			}
+			if(shootTime >= shootDelay - 1){
+				GetComponent<LineRenderer>().SetColors (new Color (1, 1, 1, 1-0.3f*laserTime), new Color (1, 1, 1, 1-0.3f*laserTime));
+				GetComponent<LineRenderer> ().SetWidth (1f - 0.5f*laserTime, 1.7f);
+				laserTime += Time.deltaTime;
 			}
 			if (shootTime >= shootDelay) {
 				shooting = false;
 				targetAcquired = false;
 				shootTime = 0;
-				shootFrequency = 0;
+				frequencyTime = 0;
 				GetComponent<LineRenderer> ().SetWidth (0.1f, 0.1f);
-				GetComponent<LineRenderer> ().SetColors (new Color (255, 255, 255, 120), new Color (255, 255, 255, 120));
+				GetComponent<LineRenderer> ().SetColors (new Color (1, 1, 1, 0.4f), new Color (1, 1, 1, 0.4f));
 				GetComponent<LineRenderer> ().enabled = false;
-
 			}
 		} 
 		else {
