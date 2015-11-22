@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour {
     IEnumerator GameOver()
     {
         yield return new WaitForSeconds(3);
+		if (!PlayerPrefs.HasKey("HighScore") || totalScore > PlayerPrefs.GetInt ("Highscore")) {
+			PlayerPrefs.SetInt("Highscore", totalScore);
+		}
         Time.timeScale = 1f;
         GetComponent<Grayscale>().enabled = false;
         Application.LoadLevel("GameOver");
