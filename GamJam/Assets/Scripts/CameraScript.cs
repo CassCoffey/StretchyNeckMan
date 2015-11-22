@@ -17,7 +17,10 @@ public class CameraScript : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate ()
     {
-        transform.position = new Vector3(Mathf.Lerp(transform.position.x, target.transform.position.x + offset, followSpeed * Time.deltaTime), transform.position.y, transform.position.z);
+        if (target != null)
+        {
+            transform.position = new Vector3(Mathf.Lerp(transform.position.x, target.transform.position.x + offset, followSpeed * Time.deltaTime), transform.position.y, transform.position.z);
+        }
 
         if (Camera.main.WorldToScreenPoint(dino.transform.position).x >= 0)
         {
