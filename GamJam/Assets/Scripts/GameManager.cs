@@ -12,6 +12,14 @@ public class GameManager : MonoBehaviour {
 
 
 	// Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.LoadLevel("Menu");
+        }
+    }
+
 	void FixedUpdate () {
 		scoreText.GetComponent<Text>().text = "Score: " + totalScore;
 		if (transform.position.x > maxDistance) {
